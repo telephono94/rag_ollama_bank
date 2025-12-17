@@ -7,11 +7,27 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
 
 ## Start
 
-1. Qdrant starten:
+1. Virtuelle Umgebung erstellen und starten:
+   ```bash 
+   python -m venv .venv
+
+   ´´´bash
+   .venv\Scripts\Activate.ps1
+
+2. Notwendigen Python-Pakete installieren
+   ´´´bash
+   pip install -r requirements.txt
+
+3. Docker Desktop öffnen, damit die Docker Engine automatisch startet
+
+4. Qdrant starten:
    ```bash
    docker run -p 6333:6333 qdrant/qdrant
 
+5. Vektordatenbank erstellen:
+´´´bash
+python ingest.py
 
-2. App starten:
-```bash
-streamlit run app.py
+6. App starten:
+   ```bash
+   streamlit run app.py
