@@ -1,6 +1,6 @@
 # main.py
 from retriever import retrieve_context
-from llm import query_llm
+from generator import query_llm
 
 def run_rag():
     query = input("Bitte gib deine Frage ein: ")

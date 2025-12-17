@@ -1,6 +1,6 @@
 import streamlit as st
 from retriever import retrieve_context
-from llm import query_llm
+from generator import query_llm
 
 st.set_page_config(page_title="💼 Bankberater RAG", page_icon="🏦", layout="wide")
 
