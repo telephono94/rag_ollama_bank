@@ -13,6 +13,6 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
 
 
 
-Führe python main.py aus
+Führe "python main.py" aus
 
-oder streamlit run app.py
+oder "streamlit run app.py" für eine Benutzeroberfläche 
