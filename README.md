@@ -12,7 +12,6 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
    docker run -p 6333:6333 qdrant/qdrant
 
 
-
-Führe "python main.py" aus
-
-oder "streamlit run app.py" für eine Benutzeroberfläche 
+2. App starten:
+```bash
+streamlit run app.py
