@@ -11,11 +11,11 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
    ```bash 
    python -m venv .venv
 
-   ´´´bash
+   ```bash
    .venv\Scripts\Activate.ps1
 
 2. Notwendigen Python-Pakete installieren
-   ´´´bash
+   ```bash
    pip install -r requirements.txt
 
 3. Docker Desktop öffnen, damit die Docker Engine automatisch startet
@@ -25,7 +25,7 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
    docker run -p 6333:6333 qdrant/qdrant
 
 5. Vektordatenbank erstellen:
-´´´bash
+```bash
 python ingest.py
 
 6. App starten:
