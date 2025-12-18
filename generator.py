@@ -7,7 +7,7 @@ def query_llm(query: str, context: str) -> str:
     Sendet eine Anfrage an das Ollama-Modell und gibt die Antwort zurück.
     """
     system_prompt = f"""
-    Du bist ein professioneller Berater, der Fragen anhand des Kontexts beantwortet.
+    Du sollst Fragen anhand des Kontexts beantworten.
     Gib klare, sachliche und kurze Antworten.
     
     Kontext:

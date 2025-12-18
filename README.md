@@ -22,6 +22,8 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
 4. Qdrant starten:
    ```bash
    docker run -p 6333:6333 qdrant/qdrant
+Öffne Qdrant unter localhost:6333/dashboard
+
 
 5. Vektordatenbank erstellen:
    ```bash

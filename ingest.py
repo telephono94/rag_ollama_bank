@@ -4,8 +4,8 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from config import QDRANT_URL, COLLECTION_NAME, EMBEDDING_MODEL_NAME
 
-loader1 = PyPDFLoader("./knowledge/Projektbericht_Customer_Health_Check.pdf")
-loader2 = PyPDFLoader("./knowledge/S4.pdf")
+loader1 = PyPDFLoader("./knowledge/Basketball_Kurzregeln.pdf")
+loader2 = PyPDFLoader("./knowledge/Basketball_Regeln.pdf")
 documents = loader1.load() + loader2.load()
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=500,
                                                    chunk_overlap=50)

@@ -2,7 +2,7 @@
 
 # Qdrant
 QDRANT_URL = "http://localhost:6333"
-COLLECTION_NAME = "Customer_Health_Check"
+COLLECTION_NAME = "Basketball_DB"
 
 # Embedding-Modell
 EMBEDDING_MODEL_NAME = "BAAI/bge-large-en"
