@@ -37,6 +37,7 @@ if not st.session_state.logged_in:
             st.session_state.logged_in = True
             st.session_state.user = login_user
             st.success(f"Willkommen {login_user}!")
+            st.rerun()
             
         else:
             st.error("Benutzername oder Passwort falsch")
@@ -47,6 +48,7 @@ else:
         st.session_state.logged_in = False
         st.session_state.user = None
         st.session_state.messages = []
+        st.rerun()
         
 
     st.write(f"👋 Angemeldet als {st.session_state.user}")

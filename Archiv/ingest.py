@@ -3,19 +3,11 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from config import QDRANT_URL, COLLECTION_NAME, EMBEDDING_MODEL_NAME
-from pathlib import Path
 
-PDF_DIR = Path("./knowledge")
-
-documents = []
-for pdf in PDF_DIR.glob("*.pdf"):
-    loader = PyPDFLoader(str(pdf))
-    docs = loader.load()
-    for d in docs:
-        d.metadata["source"] = pdf.name
-    documents.extend(docs)
-
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
+loader1 = PyPDFLoader("./knowledge/Basketball_Kurzregeln.pdf")
+loader2 = PyPDFLoader("./knowledge/Basketball_Regeln.pdf")
+documents = loader1.load() + loader2.load()
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=800,
                                                    chunk_overlap=100)
 texts = text_splitter.split_documents(documents)
 
