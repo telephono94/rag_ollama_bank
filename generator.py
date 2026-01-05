@@ -2,15 +2,22 @@
 from ollama import chat
 from config import LLM_MODEL
 
-def query_llm(query: str, context: str) -> str:
-    """
-    Sendet eine Anfrage an das Ollama-Modell und gibt die Antwort zurück.
-    """
-    system_prompt = f"""
-    Du sollst Fragen anhand des Kontexts beantworten.
-    Gib klare, sachliche und kurze Antworten.
+def query_llm(query: str, context: str, chat_history: str = "") -> str:
     
-    Kontext:
+    system_prompt = f"""
+    
+    Du bist ein hilfreicher Basketball-Regelassistent.
+    
+    Wichtige Regeln:
+    - Du sollst Fragen anhand der Fakten aus den Dokumenten beantworten.
+    - Erinnerungen dienen nur zum besseren Gesprächsfluss.
+    - Wenn Dokumente und Erinnerungen widersprechen, ignoriere die Erinnerungen.
+    -Gib klare, sachliche und kurze Antworten.
+
+    Relevante Erinnerungen aus dem Gespräch:
+    {chat_history}
+    
+    Fakten aus Dokumenten:
     {context}
     """
 

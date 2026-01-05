@@ -76,30 +76,21 @@ else:
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
-
+  
 
     if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
         with st.chat_message("assistant"):
             chat_history = "\n".join(
                 f"{m['role']}: {m['content']}"
-                for m in st.session_state.messages[-6:]
+                for m in st.session_state.messages[-4:]
             )
 
-            retrieval_query = f"""
-            Kontext des bisherigen Gesprächs:
-            {chat_history}
-
-            Aktuelle Frage:
-            {query}
-            """
-
-
-
+            
             with st.spinner("🔍 Suche relevante Dokumente..."):
                 context = retrieve_context(query)
 
             with st.spinner("💬 Generiere Antwort..."):
-                answer = query_llm(query, context)
+                answer = query_llm(query, context, chat_history)
 
             st.markdown(answer)
 
