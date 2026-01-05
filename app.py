@@ -96,7 +96,7 @@ else:
 
 
             with st.spinner("🔍 Suche relevante Dokumente..."):
-                context = retrieve_context(retrieval_query)
+                context = retrieve_context(query)
 
             with st.spinner("💬 Generiere Antwort..."):
                 answer = query_llm(query, context)

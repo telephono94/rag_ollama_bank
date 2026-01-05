@@ -21,7 +21,7 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
 
 4. Qdrant starten:
    ```bash
-   docker run -p 6333:6333 qdrant/qdrant
+   docker compose up
 Öffne Qdrant unter localhost:6333/dashboard
 
 
