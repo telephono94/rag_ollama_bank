@@ -5,8 +5,8 @@ from auth import register, login
 
 
 st.set_page_config(page_title="Basketball RAG Chatbot", layout="wide")
-st.title("💬 Basketball RAG Chatbot")
-st.write("Stelle Fragen zu Basketballregeln – mit Qdrant + Gemma3:4b")
+st.title("🏀 Basketball RAG Chatbot")
+st.write("Stelle Fragen zu Basketballregeln – mit Qdrant als Datenbank + Gemma3:4b als LLM")
 
 
 # Session State für Login + Chat
@@ -43,49 +43,53 @@ if not st.session_state.logged_in:
             st.error("Benutzername oder Passwort falsch")
 
 else:
-    # Logout Button
-    if st.button("Logout"):
-        st.session_state.logged_in = False
-        st.session_state.user = None
-        st.session_state.messages = []
-        st.rerun()
+    
+    if st.button("🚪 Logout", key="logout_btn"):
+            st.session_state.logged_in = False
+            st.session_state.user = None
+            st.session_state.messages = []
+            st.rerun()
+
+    
+    if st.button("🗑️ Chatverlauf löschen", key="clear_chat_btn"):
+            st.session_state.messages = []
+            st.rerun()
         
 
     st.write(f"👋 Angemeldet als {st.session_state.user}")
 
-
-
-
-
     if "messages" not in st.session_state:
        st.session_state.messages = []
 
+    
 
+    # Chatverlauf anzeigen
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
 
     # Chat Input
-    query = st.chat_input("🧠 Stelle deine Frage...")
+    query = st.chat_input("🧠 Stelle eine Frage zu Basketballregeln...")
 
     if query:
+
+        with st.chat_message("user"):
+            st.markdown(query)
+
+        chat_history = [
+                m for m in st.session_state.messages[-6:]
+                if m["role"] in ("user", "assistant")
+            ]  
+
+
         # User Message speichern
         st.session_state.messages.append({
             "role": "user",
             "content": query
         })
 
-    # Chatverlauf anzeigen
-    for msg in st.session_state.messages:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
-  
+        with st.chat_message("assistant"):            
 
-    if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
-        with st.chat_message("assistant"):
-            chat_history = "\n".join(
-                f"{m['role']}: {m['content']}"
-                for m in st.session_state.messages[-4:]
-            )
-
-            
             with st.spinner("🔍 Suche relevante Dokumente..."):
                 context = retrieve_context(query)
 
@@ -99,9 +103,7 @@ else:
                 "role": "assistant",
                 "content": answer
             })
-
-        # Optional: Kontext anzeigen
-        with st.expander("🔎 Kontext aus Qdrant anzeigen"):
-            st.text(context)
-
-    
+  
+            # Optional: Kontext anzeigen
+            with st.expander("🔎 Kontext aus Qdrant anzeigen"):
+                st.text(context)
