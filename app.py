@@ -2,6 +2,9 @@ import streamlit as st
 from retriever import retrieve_context
 from generator import query_llm
 from auth import register, login
+from chat_db import init_db, save_message, load_chat, clear_chat
+
+init_db()
 
 
 st.set_page_config(page_title="Basketball RAG Chatbot", layout="wide")
@@ -36,6 +39,7 @@ if not st.session_state.logged_in:
         if login(login_user, login_pass):
             st.session_state.logged_in = True
             st.session_state.user = login_user
+            st.session_state.messages = load_chat(login_user)
             st.success(f"Willkommen {login_user}!")
             st.rerun()
             
@@ -44,6 +48,9 @@ if not st.session_state.logged_in:
 
 else:
     
+    if "messages" not in st.session_state:
+       st.session_state.messages = load_chat(st.session_state.user)
+
     if st.button("🚪 Logout", key="logout_btn"):
             st.session_state.logged_in = False
             st.session_state.user = None
@@ -51,15 +58,15 @@ else:
             st.rerun()
 
     
-    if st.button("🗑️ Chatverlauf löschen", key="clear_chat_btn"):
-            st.session_state.messages = []
-            st.rerun()
+    if st.button("🗑️ Chat löschen"):
+        clear_chat(st.session_state.user)
+        st.session_state.messages = []
+        st.rerun()
         
 
     st.write(f"👋 Angemeldet als {st.session_state.user}")
 
-    if "messages" not in st.session_state:
-       st.session_state.messages = []
+    
 
     
 
@@ -68,6 +75,10 @@ else:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
+    
+    
+    
+    
     # Chat Input
     query = st.chat_input("🧠 Stelle eine Frage zu Basketballregeln...")
 
@@ -88,6 +99,8 @@ else:
             "content": query
         })
 
+        save_message(st.session_state.user, "user", query)
+
         with st.chat_message("assistant"):            
 
             with st.spinner("🔍 Suche relevante Dokumente..."):
@@ -103,6 +116,8 @@ else:
                 "role": "assistant",
                 "content": answer
             })
+
+            save_message(st.session_state.user, "assistant", answer)
   
             # Optional: Kontext anzeigen
             with st.expander("🔎 Kontext aus Qdrant anzeigen"):

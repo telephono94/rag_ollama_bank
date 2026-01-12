@@ -9,9 +9,9 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
 
 1. Virtuelle Umgebung erstellen und starten:
    ```bash 
-   python -m venv .venv
+   python -m venv venv
 
-   .venv\Scripts\Activate.ps1
+   venv\Scripts\Activate.ps1
 
 2. Notwendigen Python-Pakete installieren
    ```bash
@@ -21,11 +21,11 @@ Ein einfaches Retrieval-Augmented-Generation (RAG) System mit:
 
 4. Qdrant starten:
    ```bash
-   docker compose up
+   docker compose up -d
 Öffne Qdrant unter localhost:6333/dashboard
 
 
-5. Vektordatenbank erstellen:
+5. (Optional) Vektordatenbank erstellen:
    ```bash
    python ingest.py
 
