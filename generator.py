@@ -2,15 +2,20 @@
 from ollama import chat
 from config import LLM_MODEL
 
-def query_llm(query: str, context: str) -> str:
-    """
-    Sendet eine Anfrage an das Ollama-Modell und gibt die Antwort zurück.
-    """
+def query_llm(query: str, context: str, chat_history: list) -> str:
+
     system_prompt = f"""
-    Du bist ein professioneller Berater, der Fragen anhand des Kontexts beantwortet.
-    Gib klare, sachliche und kurze Antworten.
     
-    Kontext:
+    Du bist ein hilfreicher Basketball-Regelassistent.
+    
+    ANTWORTREGELN:
+    1. Antworte nur auf Basis der unten stehenden Dokumente.
+    2. Wenn die Dokumente die Frage nicht abdecken, antworte: "Die bereitgestellten Dokumente enthalten keine Informationen zu dieser Frage."
+    3. Keine Erfindungen, kein Weltwissen.
+    4. Antworten, die nicht aus den Dokumenten stammen, sind verboten.
+
+
+    Dokumente:
     {context}
     """
 
@@ -18,6 +23,7 @@ def query_llm(query: str, context: str) -> str:
         model=LLM_MODEL,
         messages=[
             {"role": "system", "content": system_prompt},
+            *chat_history,
             {"role": "user", "content": query}
         ]
     )

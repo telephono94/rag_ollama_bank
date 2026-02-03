@@ -1,2 +1,6 @@
 # Alle PDF-Dateien ignorieren
 *.pdf
+
+#Alle notebooks ignorieren
+*ipynb
+
