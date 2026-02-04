@@ -9,3 +9,6 @@ Archiv/
 
 #users.json
 
+#chat_history.db
+
+check_db_streamlit.py
